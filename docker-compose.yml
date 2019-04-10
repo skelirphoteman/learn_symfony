@@ -1,0 +1,31 @@
+version: '3'
+
+networks: 
+  test:
+services: 
+  nginx:
+    image: nginx
+    container_name: nginx
+    networks:
+      - test
+    volumes:
+      - $PWD/nginx/:/etc/nginx/conf.d/
+      - $PWD/www/:/var/www/
+    ports:
+      - '8888:80'
+    depends_on:
+      - php
+  php:
+    image: php:fpm
+    container_name: php
+    networks:
+      - test
+    volumes:
+      - $PWD/www/:/var/www/
+  composer:
+    image: composer
+    container_name: php-composer
+    volumes:
+      - $PWD/www/:/var/www/
+    tty: true
+    command: ['/bin/bash']

@@ -1,0 +1,6 @@
+Cahier de bord :
+
+10/04:
+-	create a new symfony project -> composer create-project symfony/website-skeleton my-project
+-	start the server -> localhost:8888
+-	

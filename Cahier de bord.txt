@@ -5,3 +5,5 @@ Cahier de bord :
 -	start the server -> localhost:8888
 -	git init
 -	clone + first commit
+11/04:
+-	create route + controller

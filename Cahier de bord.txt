@@ -7,3 +7,6 @@ Cahier de bord :
 -	clone + first commit
 11/04:
 -	create route + controller
+-	composer require maker
+-	install mysql in docker
+-	try to install and use mysql

@@ -29,3 +29,12 @@ services:
       - $PWD/www/:/var/www/
     tty: true
     command: ['/bin/bash']
+    networks:
+      - test
+  mysql:
+    image: mysql
+    container_name: mysql
+    env_file:
+      - mysql.env
+    volumes:
+      - $PWD/mysql/:/var/lib/mysql/

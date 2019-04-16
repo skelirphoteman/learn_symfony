@@ -10,3 +10,8 @@ Cahier de bord :
 -	composer require maker
 -	install mysql in docker
 -	try to install and use mysql
+16/04:
+-	Debug mysql 
+-	link to .env file
+-	problem in mysql filder
+-	I resolved it today -> YESSS

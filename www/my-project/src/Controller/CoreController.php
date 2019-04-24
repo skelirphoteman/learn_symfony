@@ -11,6 +11,7 @@ class CoreController
 	*/
 	public function index()
 	{
-		return new Response('Bonjour à tous !');
+		phpinfo();
+		return new Response('');
 	}
 }

@@ -15,3 +15,7 @@ Cahier de bord :
 -	link to .env file
 -	problem in mysql filder
 -	I resolved it today -> YESSS
+24/04:
+-	try to link symfony to mysql
+-	error on connection because "could not find driver" 
+-	I think it's a problem on docker and i must install pdo_mysql

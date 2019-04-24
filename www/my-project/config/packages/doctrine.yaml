@@ -8,6 +8,10 @@ parameters:
 doctrine:
     dbal:
         # configure these for your database server
+        # host: mysql
+        # port: 3306
+        # user: julien
+        # password: test
         driver: 'pdo_mysql'
         server_version: '5.7'
         charset: utf8mb4

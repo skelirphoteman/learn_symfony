@@ -16,12 +16,17 @@ services:
     depends_on:
       - php
   php:
-    image: php:fpm
+    build:
+      context: ./php/
+      dockerfile: Dockerfile
     container_name: php
     networks:
       - test
     volumes:
       - $PWD/www/:/var/www/
+      - $PWD/php/php.ini-development:/usr/local/etc/php/php.ini
+    depends_on:
+      - mysql
   composer:
     image: composer
     container_name: php-composer
@@ -31,11 +36,16 @@ services:
     command: ['/bin/bash']
     networks:
       - test
+    working_dir: /var/www/html/my-project
+    depends_on:
+      - php
   mysql:
     image: mysql
     container_name: mysql
     ports: 
       - '3306:3306'
+    command:
+      - "--default-authentication-plugin=mysql_native_password"
     env_file: .env
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}

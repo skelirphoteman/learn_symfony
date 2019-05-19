@@ -19,3 +19,12 @@ Cahier de bord :
 -	try to link symfony to mysql
 -	error on connection because "could not find driver" 
 -	I think it's a problem on docker and i must install pdo_mysql
+6/05:
+-	I resolved symfony concerned 
+11/05:
+-	1 Objectif -> connection utilisateur(entity, formulaire)
+12/05:
+-	UserEntity
+-	UserType(personnalisé)
+-	translation activer
+-	install asset et configuration bootstrap 

@@ -28,3 +28,9 @@ Cahier de bord :
 -	UserType(personnalisé)
 -	translation activer
 -	install asset et configuration bootstrap 
+20/05:
+-	UserType -> UserRegisterType(terminé)
+-	bootstrap on dans public/bootstrap
+-	UserController active
+-	Page pour s'inscrire ok
+-	prochain objectif -> connection + start game...

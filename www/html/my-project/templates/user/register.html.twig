@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css')}}">
+</head>
+<body>
+	<div class="register">
+		{{ form_start(form_register) }}
+		{{ form_errors(form_register) }}
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				{{ form_row(form_register.name)}}
+			</div>
+			<div class="form-group col-md-6">
+				{{ form_row(form_register.surname)}}
+			</div>
+		</div>
+		{{ form_row(form_register.email)}}
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				{{ form_row(form_register.password.first)}}
+			</div>
+			<div class="form-group col-md-6">
+				{{ form_row(form_register.password.second)}}
+			</div>
+		</div>
+		<input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
+		{{ form_row(form_register.save)}}
+		{{ form_start(form_register) }}
+	</div>
+
+</body>
+</html>
+

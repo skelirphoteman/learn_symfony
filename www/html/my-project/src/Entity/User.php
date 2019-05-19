@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -86,11 +86,11 @@ class User
     public function getPassword(): ?string
     {
         return $this->password;
-    } 
+    }
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
 
         return $this;
     }

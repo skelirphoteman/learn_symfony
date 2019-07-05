@@ -27,6 +27,7 @@ services:
       - $PWD/php/php.ini-development:/usr/local/etc/php/php.ini
     depends_on:
       - mysql
+    working_dir: /var/www/html/my-project
   composer:
     image: composer
     container_name: php-composer

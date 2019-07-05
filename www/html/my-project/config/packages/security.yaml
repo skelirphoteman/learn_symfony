@@ -1,20 +1,25 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
-        users:
+        our_db_provider:
             entity:
-                # the class of the entity that represents users
-                class: 'App\Entity\User'
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
-            guard:
-                authenticators: [App\Security\LoginFormAuthenticator]
-            
+            pattern:   ^/
+            http_basic: ~
+            provider: our_db_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path:  /logout
+                target: /    
             # activate different ways to authenticate
 
             # http_basic: true
@@ -25,10 +30,14 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    
+    role_hierarchy:
+        ROLE_ADMIN:      ROLE_USER
+        #ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     access_control:
-        - { path ^/login$, orles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }
     encoders:
-        # this internal class is used by Symfony to represent in-memory users
-        Symfony\Component\Security\Core\User\User: 'bcrypt'
+        App\Entity\User:
+            algorithm: bcrypt

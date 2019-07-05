@@ -33,7 +33,7 @@ class UserRegisterType extends AbstractType
 			->add('email', EmailType::class,
 				['label' => "your.email",
 				'attr' => ['class' => 'form-control']])
-			->add('password', RepeatedType::class,[
+			->add('plainPassword', RepeatedType::class,[
 				'type' => PasswordType::class,
 				'invalid_message' => 'password.fail',
 				'required' => true,

@@ -7,13 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("email")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
 
     private $salt;
@@ -41,6 +42,17 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=250)
+     */
+    private $plainPassword;
+
+   /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -50,13 +62,13 @@ class User implements UserInterface
      */
     private $roles = [];
 
+
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        if (empty($this->roles)) {
+            return ['ROLE_USER'];
+        }
+        return $this->roles; 
     }
 
     public function getId(): ?int
@@ -104,15 +116,34 @@ class User implements UserInterface
     {
         return $this->password;
     }
+    
 
-    public function setPassword(string $password): self
-    {
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
-
-        return $this;
+    function setPassword($password) {
+        $this->password = $password;
     }
 
-    
+    function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    function getIsActive() {
+        return $this->isActive;
+    }
+
+    function setPlainPassword($plainPassword) {
+        $this->plainPassword = $plainPassword;
+    }
+
+    function setIsActive($isActive) {
+        $this->isActive = $isActive;
+    }
+
+
+
+
+
+
+
 
     public function eraseCredentials()
     {
@@ -126,8 +157,30 @@ class User implements UserInterface
 
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
 
 
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password
+        ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    public function addRole($newRole){
+        array_push($this->roles, $newRole);
+    }
 }

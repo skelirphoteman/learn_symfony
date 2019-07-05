@@ -9,11 +9,13 @@ use Symfony\Component\HttpFoundation\Response;// envoi HTTP
 use Symfony\Component\Routing\Annotation\Route;//pour les annotation direct
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-use App\Form\UserRegisterType;
-use App\Entity\User;
 
 class CoreController extends AbstractController
 {
-
-
+	/**
+	 * @Route("/", name="home")
+	 */
+	public function home(Request $request){
+		return $this->render('core/home.html.twig');	
+	}
 }

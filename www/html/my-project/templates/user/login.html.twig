@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css')}}">
-</head>
-<body>
-	<div class="register">
-<form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">
+            <ul class="list-unstyled mb-0">
+                <li><span class="initialism form-error-icon badge badge-danger">Error</span> 
+                    <span class="form-error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                </li>
+            </ul>
+        </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-
-	</div>
-
-</body>
-</html>
-
+    {{form(form)}}
